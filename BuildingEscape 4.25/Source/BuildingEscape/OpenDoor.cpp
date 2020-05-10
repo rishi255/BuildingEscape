@@ -22,25 +22,20 @@ void UOpenDoor::BeginPlay()
 	Super::BeginPlay();
 	Owner = GetOwner();
 	ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
-	
 
-//	UE_LOG(LogTemp, Error, TEXT("SM_Door2, CloseAngle_SM_Door2 = {%f, %f, %f}"), CloseAngle.Pitch, CloseAngle.Roll, CloseAngle.Yaw);
 	CloseAngle = Owner->GetActorRotation().Yaw;
 	OpenAngle = CloseAngle;
-	OpenAngle -= 90.f;
-
+	OpenAngle = OpenAngle - 90.f;
 }
 
 void UOpenDoor::OpenDoor()
 {
-	//UE_LOG(LogTemp, Error, TEXT("Owner->GetName() = %s"), Owner->GetName());
 
 	Owner->SetActorRotation(FRotator(0.f, OpenAngle, 0.f));
 }
 
 void UOpenDoor::CloseDoor()
 {
-	// UE_LOG(LogTemp, Error, TEXT("DOOR CLOSED AT %f! Last Door open time was %f seconds ago, Delay = %f"), GetWorld()->GetTimeSeconds(), LastDoorOpenTime, DoorCloseDelay);
 	Owner->SetActorRotation(FRotator(0.f, CloseAngle, 0.f));
 }
 
