@@ -20,18 +20,29 @@ UOpenDoor::UOpenDoor()
 void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
-
+	Owner = GetOwner();
 	ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
+	
+
+//	UE_LOG(LogTemp, Error, TEXT("SM_Door2, CloseAngle_SM_Door2 = {%f, %f, %f}"), CloseAngle.Pitch, CloseAngle.Roll, CloseAngle.Yaw);
+	CloseAngle = Owner->GetActorRotation().Yaw;
+	OpenAngle = CloseAngle;
+	OpenAngle -= 90.f;
+
 }
 
 void UOpenDoor::OpenDoor()
 {
-	FRotator Rotation = { 0, 60, 0 };
-	AActor *Owner = GetOwner();
+	//UE_LOG(LogTemp, Error, TEXT("Owner->GetName() = %s"), Owner->GetName());
 
-	Owner->SetActorRotation(Rotation);
+	Owner->SetActorRotation(FRotator(0.f, OpenAngle, 0.f));
 }
 
+void UOpenDoor::CloseDoor()
+{
+	// UE_LOG(LogTemp, Error, TEXT("DOOR CLOSED AT %f! Last Door open time was %f seconds ago, Delay = %f"), GetWorld()->GetTimeSeconds(), LastDoorOpenTime, DoorCloseDelay);
+	Owner->SetActorRotation(FRotator(0.f, CloseAngle, 0.f));
+}
 
 // Called every frame
 void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -41,6 +52,11 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	if (PressurePlate->IsOverlappingActor(ActorThatOpens))  // Actor that opens is overlapping pressure plate
 	{
 		OpenDoor();
+		LastDoorOpenTime = GetWorld()->GetTimeSeconds();
 	}
+
+	// check if it's time to close the door
+	if (GetWorld()->GetTimeSeconds() - LastDoorOpenTime > DoorCloseDelay)
+		CloseDoor();
 }
 
