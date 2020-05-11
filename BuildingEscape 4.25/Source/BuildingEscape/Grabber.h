@@ -37,15 +37,12 @@ private:
 	UPROPERTY(EditAnywhere)
 		float Reach = 120.f;
 
-	FCollisionQueryParams TraceParameters;
-
 	UPROPERTY(VisibleAnywhere)
 		UPhysicsHandleComponent* PhysicsHandle = nullptr;
 
 	UPROPERTY(VisibleAnywhere)
 		UInputComponent* PawnInput = nullptr;
 
-	/// ok
 	void Grab();
 	void Release();
 
@@ -53,8 +50,11 @@ private:
 	void FindPhysicsHandle();
 
 	// find UInputComponent and then bind actions (grab and release)
-	void FindPawnInput();
+	void SetupInputComponent();
 
 	// return hit for first physics body in reach
 	const FHitResult GetFirstPhysicsBodyInReach();
+
+	// gets start and end vectors of the line trace and returns them as a pair
+	FTwoVectors GetLineTracePoints();
 };
