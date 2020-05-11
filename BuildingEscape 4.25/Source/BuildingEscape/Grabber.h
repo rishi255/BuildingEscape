@@ -27,6 +27,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
+<<<<<<< HEAD
 	UPROPERTY(VisibleAnywhere)
 		FVector PlayerViewPointLocation = FVector(0, 0, 0);
 	UPROPERTY(VisibleAnywhere)
@@ -37,4 +38,9 @@ private:
 		float Reach = 120.f;
 
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+=======
+	FVector PlayerViewPointLocation = FVector(0, 0, 0);
+	FRotator PlayerViewPointRotation = FRotator(0, 0, 0);
+		
+>>>>>>> parent of 68c2c09... Committed StarterContent and .vs directory
 };
