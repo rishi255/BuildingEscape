@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "GameFramework/PlayerController.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "Grabber.generated.h"
 
 
@@ -34,4 +35,6 @@ private:
 	// how far ahead of the player we can reach (in cms)
 	UPROPERTY(EditAnywhere)
 		float Reach = 120.f;
+
+	UPhysicsHandleComponent* PhysicsHandle = nullptr;
 };
