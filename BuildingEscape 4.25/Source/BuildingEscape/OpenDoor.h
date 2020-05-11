@@ -29,16 +29,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-//	UPROPERTY(VisibleAnywhere)
-//		FRotator OpenAngle;  //  for door 2 -> FRotator(0.f, 0.f, 0.f);
-//	UPROPERTY(VisibleAnywhere)
-//		FRotator CloseAngle; //  for door 2 -> FRotator(0.f, 0.f, 90.f)
 
-//	UPROPERTY(VisibleAnywhere)
-//		FRotator OpenAngle_SM_Door3 = FRotator(0.f, 0.f, 90.f);
-//	UPROPERTY(VisibleAnywhere)
-//		FRotator CloseAngle_SM_Door3 = FRotator(0.f, 0.f, 180.f);
-	
 	UPROPERTY(VisibleAnywhere)
 	float OpenAngle;
 	UPROPERTY(VisibleAnywhere)
