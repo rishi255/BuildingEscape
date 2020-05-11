@@ -28,5 +28,8 @@ public:
 private:
 	FVector PlayerViewPointLocation = FVector(0, 0, 0);
 	FRotator PlayerViewPointRotation = FRotator(0, 0, 0);
-		
+
+	// how far ahead of the player we can reach (in cms)
+	UPROPERTY(EditAnywhere)
+		float Reach = 120.f;
 };
