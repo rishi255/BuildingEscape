@@ -28,6 +28,7 @@ public:
 
 private:
 <<<<<<< HEAD
+<<<<<<< HEAD
 	UPROPERTY(VisibleAnywhere)
 		FVector PlayerViewPointLocation = FVector(0, 0, 0);
 	UPROPERTY(VisibleAnywhere)
@@ -39,6 +40,8 @@ private:
 
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
 =======
+=======
+>>>>>>> ba2d1b58b4542f01df2a6bbb6589e79af7dd9746
 	FVector PlayerViewPointLocation = FVector(0, 0, 0);
 	FRotator PlayerViewPointRotation = FRotator(0, 0, 0);
 		

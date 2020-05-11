@@ -3,10 +3,13 @@
 #include "Grabber.h"
 #include "BuildingEscape.h"
 <<<<<<< HEAD
+<<<<<<< HEAD
 #include "DrawDebugHelpers.h"
 #include "CollisionQueryParams.h"
 =======
 >>>>>>> parent of 68c2c09... Committed StarterContent and .vs directory
+=======
+>>>>>>> ba2d1b58b4542f01df2a6bbb6589e79af7dd9746
 #define OUT 
 
 // Sets default values for this component's properties
@@ -43,6 +46,7 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	UE_LOG(LogTemp, Warning, TEXT("PLAYER VIEWPOINT: %s, LOCATION: %s"), 
 		*PlayerViewPointRotation.ToString(), 
 		*PlayerViewPointLocation.ToString()
+<<<<<<< HEAD
 <<<<<<< HEAD
 	)*/
 
@@ -82,5 +86,8 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 =======
 	)
 >>>>>>> parent of 68c2c09... Committed StarterContent and .vs directory
+=======
+	)
+>>>>>>> ba2d1b58b4542f01df2a6bbb6589e79af7dd9746
 }
 
