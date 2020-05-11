@@ -37,18 +37,24 @@ private:
 	UPROPERTY(EditAnywhere)
 		float Reach = 120.f;
 
-	/// setup query parameters
-	FCollisionQueryParams TraceParameters(FName(TEXT("")), false, GetOwner());
+	FCollisionQueryParams TraceParameters;
 
-
-	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+	UPROPERTY(VisibleAnywhere)
+		UPhysicsHandleComponent* PhysicsHandle = nullptr;
 
 	UPROPERTY(VisibleAnywhere)
 		UInputComponent* PawnInput = nullptr;
 
-	// Ray-cast and grab what's in reach
+	/// ok
 	void Grab();
-
-	// Called when grab is released
 	void Release();
+
+	// find UPhysicsHandleComponent, then do stuff
+	void FindPhysicsHandle();
+
+	// find UInputComponent and then bind actions (grab and release)
+	void FindPawnInput();
+
+	// return hit for first physics body in reach
+	const FHitResult GetFirstPhysicsBodyInReach();
 };
