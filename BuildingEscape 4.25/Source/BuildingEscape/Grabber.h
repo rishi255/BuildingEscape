@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "PhysicsEngine/PhysicsHandleComponent.h"
+#include "Components/InputComponent.h"
 #include "Grabber.generated.h"
 
 
@@ -27,8 +28,6 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-<<<<<<< HEAD
-<<<<<<< HEAD
 	UPROPERTY(VisibleAnywhere)
 		FVector PlayerViewPointLocation = FVector(0, 0, 0);
 	UPROPERTY(VisibleAnywhere)
@@ -38,12 +37,18 @@ private:
 	UPROPERTY(EditAnywhere)
 		float Reach = 120.f;
 
+	/// setup query parameters
+	FCollisionQueryParams TraceParameters(FName(TEXT("")), false, GetOwner());
+
+
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
-=======
-=======
->>>>>>> ba2d1b58b4542f01df2a6bbb6589e79af7dd9746
-	FVector PlayerViewPointLocation = FVector(0, 0, 0);
-	FRotator PlayerViewPointRotation = FRotator(0, 0, 0);
-		
->>>>>>> parent of 68c2c09... Committed StarterContent and .vs directory
+
+	UPROPERTY(VisibleAnywhere)
+		UInputComponent* PawnInput = nullptr;
+
+	// Ray-cast and grab what's in reach
+	void Grab();
+
+	// Called when grab is released
+	void Release();
 };
