@@ -1,8 +1,20 @@
-BuildingEscape/*
+###################################################
+############ UNREAL GENERATED FILES ###############
+###################################################
+
+*/Build/
 */Binaries/
-BuildingEscape 4.25/Content/StarterContent/
-BuildingEscape 4.25/.vs/
 */DerivedDataCache/
 */Intermediate/
 */Saved/
+BuildingEscape 4.25/Content/StarterContent/HDRI
+BuildingEscape 4.25/Content/StarterContent/Textures
+
+
+
+###################################################
+############## VS GENERATED FILES #################
+###################################################	
+
 *.VC.db
+*.suo
