@@ -2,14 +2,9 @@
 
 #include "Grabber.h"
 #include "BuildingEscape.h"
-<<<<<<< HEAD
-<<<<<<< HEAD
 #include "DrawDebugHelpers.h"
 #include "CollisionQueryParams.h"
-=======
->>>>>>> parent of 68c2c09... Committed StarterContent and .vs directory
-=======
->>>>>>> ba2d1b58b4542f01df2a6bbb6589e79af7dd9746
+
 #define OUT 
 
 // Sets default values for this component's properties
@@ -31,8 +26,33 @@ void UGrabber::BeginPlay()
 	UE_LOG(LogTemp, Warning, TEXT("Grabber reporting for duty!"));
 	
 	/// look for attached physics handle
+	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
+
+	if (!PhysicsHandle)
+	{
+		UE_LOG(LogTemp, Error, TEXT("NO PHYSICS HANDLE COMPONENT FOUND for %s"), *GetOwner()->GetName())
+	}
+
+	PawnInput = GetOwner()->FindComponentByClass<UInputComponent>();
+	if (PawnInput)
+	{
+		/// bind input axis
+		PawnInput->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
+		PawnInput->BindAction("Grab", IE_Released, this, &UGrabber::Release);
+	}
+	else
+		UE_LOG(LogTemp, Error, TEXT("INPUT COMPONENT NOT FOUND for %s"), *GetOwner()->GetName())
 }
 
+void UGrabber::Grab()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Grab pressed!"))
+}
+
+void UGrabber::Release()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Grab released!"))
+}
 
 // Called every frame
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -43,11 +63,10 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 		OUT PlayerViewPointLocation,
 		OUT PlayerViewPointRotation
 	);
+	/*
 	UE_LOG(LogTemp, Warning, TEXT("PLAYER VIEWPOINT: %s, LOCATION: %s"), 
 		*PlayerViewPointRotation.ToString(), 
 		*PlayerViewPointLocation.ToString()
-<<<<<<< HEAD
-<<<<<<< HEAD
 	)*/
 
 	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector()*Reach;
@@ -62,9 +81,6 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 		0.f,
 		10.f
 	);
-
-	/// setup query parameters
-	FCollisionQueryParams TraceParameters(FName(TEXT("")), false, GetOwner());
 
 	/// line-trace (AKA ray-cast) out to certain distance
 	FHitResult Hit;
@@ -83,11 +99,5 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	{
 		UE_LOG(LogTemp, Warning, TEXT("OBJECT HIT: %s"), *(ActorHit->GetName()))
 	}
-=======
-	)
->>>>>>> parent of 68c2c09... Committed StarterContent and .vs directory
-=======
-	)
->>>>>>> ba2d1b58b4542f01df2a6bbb6589e79af7dd9746
 }
 
