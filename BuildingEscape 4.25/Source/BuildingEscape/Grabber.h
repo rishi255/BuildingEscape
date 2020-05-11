@@ -26,8 +26,10 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	FVector PlayerViewPointLocation = FVector(0, 0, 0);
-	FRotator PlayerViewPointRotation = FRotator(0, 0, 0);
+	UPROPERTY(VisibleAnywhere)
+		FVector PlayerViewPointLocation = FVector(0, 0, 0);
+	UPROPERTY(VisibleAnywhere)
+		FRotator PlayerViewPointRotation = FRotator(0, 0, 0);
 
 	// how far ahead of the player we can reach (in cms)
 	UPROPERTY(EditAnywhere)

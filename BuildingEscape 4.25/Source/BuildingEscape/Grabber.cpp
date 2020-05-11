@@ -3,6 +3,7 @@
 #include "Grabber.h"
 #include "BuildingEscape.h"
 #include "DrawDebugHelpers.h"
+#include "CollisionQueryParams.h"
 #define OUT 
 
 // Sets default values for this component's properties
@@ -42,7 +43,7 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	)*/
 
 	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector()*Reach;
-	// draw a red trace in the world to visualise
+	/// draw a red trace in the world to visualise
 	DrawDebugLine(
 		GetWorld(),
 		PlayerViewPointLocation,
@@ -54,7 +55,25 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 		10.f
 	);
 
-	// ray-cast out to certain distance
-	// see what we hit
+	/// setup query parameters
+	FCollisionQueryParams TraceParameters(FName(TEXT("")), false, GetOwner());
+
+	/// line-trace (AKA ray-cast) out to certain distance
+	FHitResult Hit;
+
+	GetWorld()->LineTraceSingleByObjectType(
+		OUT Hit,
+		PlayerViewPointLocation,
+		LineTraceEnd,
+		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
+		TraceParameters
+	);
+
+	/// see what we hit
+	AActor* ActorHit = Hit.GetActor();
+	if (ActorHit)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("OBJECT HIT: %s"), *(ActorHit->GetName()))
+	}
 }
 
