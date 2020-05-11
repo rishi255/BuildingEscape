@@ -19,3 +19,5 @@ BuildingEscape 4.25/Content/StarterContent/Textures
 *.VC.db
 *.suo
 */ipch/
+*.VC.opendb
+*.sln
