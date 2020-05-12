@@ -41,10 +41,12 @@ private:
 	UPROPERTY(EditAnywhere)
 		float DoorCloseDelay = 1.f;
 
+	UPROPERTY(EditAnywhere)
+	// total mass of all actors falling inside the trigger should be at least this value to trigger it
+		float TriggerMassThreshold = 25.f;	
+
 	float LastDoorOpenTime;
 
-	AActor* ActorThatOpens;
-	// remember pawn inherits from actor
-
+	float GetTotalMassOfActorsOnPlate();
 	AActor* Owner;
 };
