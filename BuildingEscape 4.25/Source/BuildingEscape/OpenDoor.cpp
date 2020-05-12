@@ -19,7 +19,6 @@ void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
 	Owner = GetOwner();
-	ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
 
 	CloseAngle = Owner->GetActorRotation().Yaw;
 	OpenAngle = CloseAngle;
@@ -41,9 +40,10 @@ void UOpenDoor::CloseDoor()
 void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	if (PressurePlate->IsOverlappingActor(ActorThatOpens))  // Actor that opens is overlapping pressure plate
+	float TotalMass = GetTotalMassOfActorsOnPlate();
+	if (TotalMass >= TriggerMassThreshold)  // Actor that opens is overlapping pressure plate
 	{
+		UE_LOG(LogTemp, Warning, TEXT("Total mass: %f"), TotalMass)
 		OpenDoor();
 		LastDoorOpenTime = GetWorld()->GetTimeSeconds();
 	}
@@ -51,5 +51,18 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	// check if it's time to close the door
 	if (GetWorld()->GetTimeSeconds() - LastDoorOpenTime > DoorCloseDelay)
 		CloseDoor();
+}
+
+float UOpenDoor::GetTotalMassOfActorsOnPlate()
+{
+	TArray<UPrimitiveComponent*> OverlappingComponents;
+	if (PressurePlate != nullptr)
+		PressurePlate->GetOverlappingComponents(OUT OverlappingComponents);
+	float TotalMass = 0.f;
+
+	for (auto&& Component : OverlappingComponents)
+		TotalMass += Component->GetMass();
+	
+	return TotalMass;
 }
 
