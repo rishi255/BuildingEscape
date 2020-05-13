@@ -20,6 +20,9 @@ void UOpenDoor::BeginPlay()
 	Super::BeginPlay();
 	Owner = GetOwner();
 
+	if (PressurePlate == nullptr)
+		UE_LOG(LogTemp, Error, TEXT("%s missing component"), *Owner->GetName());
+
 	CloseAngle = Owner->GetActorRotation().Yaw;
 	OpenAngle = CloseAngle;
 	OpenAngle = OpenAngle - 90.f;
@@ -27,7 +30,6 @@ void UOpenDoor::BeginPlay()
 
 void UOpenDoor::OpenDoor()
 {
-
 	Owner->SetActorRotation(FRotator(0.f, OpenAngle, 0.f));
 }
 
@@ -55,10 +57,10 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 
 float UOpenDoor::GetTotalMassOfActorsOnPlate()
 {
-	TArray<UPrimitiveComponent*> OverlappingComponents;
-	if (PressurePlate != nullptr)
-		PressurePlate->GetOverlappingComponents(OUT OverlappingComponents);
 	float TotalMass = 0.f;
+	TArray<UPrimitiveComponent*> OverlappingComponents;
+	if (PressurePlate == nullptr) { return TotalMass; }
+	PressurePlate->GetOverlappingComponents(OUT OverlappingComponents);
 
 	for (auto&& Component : OverlappingComponents)
 		TotalMass += Component->GetMass();

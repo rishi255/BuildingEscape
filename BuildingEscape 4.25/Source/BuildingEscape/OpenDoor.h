@@ -1,12 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-
 #include"Engine/TriggerVolume.h"
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "OpenDoor.generated.h"
-
+#define FROTATOR_ORDER Y,Z,X // PITCH, YAW, ROLL
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BUILDINGESCAPE_API UOpenDoor : public UActorComponent
@@ -48,5 +47,5 @@ private:
 	float LastDoorOpenTime;
 
 	float GetTotalMassOfActorsOnPlate();
-	AActor* Owner;
+	AActor* Owner = nullptr;
 };

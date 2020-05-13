@@ -53,6 +53,7 @@ void UGrabber::Grab()
 	// if we hit something then attach a physics handle
 	if (HitResult.GetActor())
 	{
+		if (!PhysicsHandle) { return; }
 		PhysicsHandle->GrabComponentAtLocationWithRotation(
 			ComponentToGrab,
 			NAME_None,	// no bones needed
@@ -64,6 +65,7 @@ void UGrabber::Grab()
 
 void UGrabber::Release()
 {
+	if (!PhysicsHandle) { return; }
 	PhysicsHandle->ReleaseComponent();
 	UE_LOG(LogTemp, Warning, TEXT("Grab released!!"))
 }
@@ -76,9 +78,14 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	// if physics handle is not attached, return
 	if (!PhysicsHandle) { return; }
 	
-	// move the object that we're holding to the line trace end.
+	
 	auto LineTracePoints = GetLineTracePoints();
-	PhysicsHandle->SetTargetLocation(GetLineTracePoints().v2);
+	// if physics handle is attached
+	if (PhysicsHandle->GrabbedComponent)
+	{
+		// move the object that we're holding to the line trace end.
+		PhysicsHandle->SetTargetLocation(GetLineTracePoints().v2);
+	}
 }
 
 FTwoVectors UGrabber::GetLineTracePoints()
