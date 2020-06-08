@@ -7,5 +7,8 @@ A building escape game in C++, made using Unreal Engine 4.
 3. Ability to pick up objects and move them around the room, and (spoiler alert) place them on the pressure plate  
 4. Sound effects!  
 5. More features (and an executable version of the game) coming soon!  
+
+## Screenshots:  
+![BuildingEscape Screenshot-1](https://github.com/rishi255/BuildingEscape/blob/master/Screenshots/Buildingescape%20Screenshot%201.png)
   
 Still in development, but a packaged executable version of this game will be out as soon as I'm done!
